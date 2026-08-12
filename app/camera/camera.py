@@ -1,5 +1,6 @@
 import cv2
-from config import CameraConfig
+
+from app.config import CameraConfig
 
 
 class Camera:

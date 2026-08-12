@@ -11,6 +11,7 @@ dependencies = [
     "fastapi>=0.141.1",
     "insightface>=1.0.1",
     "numpy>=2.5.1",
+    "onnxruntime>=1.28.0",
     "opencv-python>=5.0.0.93",
     "pydantic>=2.13.4",
     "qdrant-client>=1.19.0",

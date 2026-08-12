@@ -1,11 +1,9 @@
 import logging
 
 import cv2
-
 from camera.camera import Camera
 from config import CameraConfig
 from utils.fps import FPSCounter
-
 
 logging.basicConfig(
     level=logging.INFO,

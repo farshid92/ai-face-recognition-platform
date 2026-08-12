@@ -30,3 +30,13 @@ build/
 htmlcov/
 
 *.egg-info/
+
+# Machine learning model artifacts
+models/
+*.onnx
+*.pt
+*.pth
+*.safetensors
+
+# InsightFace model cache
+.insightface/
