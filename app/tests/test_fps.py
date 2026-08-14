@@ -1,5 +1,6 @@
 import pytest
-from utils.fps import FPSCounter
+
+from app.utils.fps import FPSCounter
 
 
 def test_fps_counter_starts_at_zero():
