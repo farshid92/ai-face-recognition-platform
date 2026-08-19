@@ -1,7 +1,11 @@
-from qdrant_client import QdrantClient, models
+import logging
 from uuid import uuid4
 from dataclasses import dataclass
 import numpy as np
+from qdrant_client import QdrantClient, models
+
+logger = logging.getLogger(__name__)
+
 
 @dataclass
 class FaceMatch:
@@ -86,10 +90,10 @@ class FaceDatabase:
             return None
 
         for result in results:
-            print(
-                f"Qdrant match: "
-                f"{result.payload.get('name')} "
-                f"score={result.score:.4f}"
+            logger.debug(
+                "Qdrant match: %s score=%.4f",
+                result.payload.get("name"),
+                result.score,
             )
 
         result = results[0]
