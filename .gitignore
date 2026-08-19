@@ -2,34 +2,31 @@ __pycache__/
 *.pyc
 
 .venv/
-
 .vscode/
-
 .pytest_cache/
-
 .mypy_cache/
-
 .ruff_cache/
-
 .idea/
 
+# Environment
 .env
+.env.local
+.env.*.local
+docker/.env
 
+# Database & Storage
 qdrant_storage/
-
 *.db
-
 *.sqlite3
 
+# Build artifacts
 dist/
-
 build/
-
-.coverage
-
-htmlcov/
-
 *.egg-info/
+
+# Testing
+.coverage
+htmlcov/
 
 # Machine learning model artifacts
 models/
@@ -40,6 +37,20 @@ models/
 
 # Local experiment data
 data/embeddings/
+data/evaluation/*.npz
 
 # InsightFace model cache
 .insightface/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor temp files
+*.swp
+*.swo
+*~
