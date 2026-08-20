@@ -6,8 +6,12 @@ from app.embedding.face_embedder import FaceEmbedder
 MATCH_THRESHOLD = 0.50
 
 
+def is_match_score(score: float | None) -> bool:
+    return score is not None and score >= MATCH_THRESHOLD
+
+
 def get_face_label(match: FaceMatch | None) -> str:
-    if match is None or match.score < MATCH_THRESHOLD:
+    if match is None or not is_match_score(match.score):
         return "Unknown"
     return match.name
 

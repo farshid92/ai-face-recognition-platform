@@ -20,7 +20,7 @@ from app.config import CameraConfig
 from app.database.qdrant import FaceDatabase, FaceMatch
 from app.desktop.rendering import DetectedFace
 from app.embedding.face_embedder import FaceEmbedder
-from app.recognition.demo import MATCH_THRESHOLD, get_face_label
+from app.recognition.demo import get_face_label, is_match_score
 
 
 class RecognitionThread(QThread):
@@ -82,7 +82,7 @@ class RecognitionThread(QThread):
 
                     match: FaceMatch | None = database.find_match(embedding)
                     label = get_face_label(match)
-                    is_match = match is not None and match.score >= MATCH_THRESHOLD
+                    is_match = match is not None and is_match_score(match.score)
 
                     x1, y1, x2, y2 = face.bbox.astype(int)
                     detected.append(

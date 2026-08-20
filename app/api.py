@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 from app.database.qdrant import FaceDatabase
 from app.embedding.face_embedder import FaceEmbedder
-from app.recognition.demo import MATCH_THRESHOLD
+from app.recognition.demo import is_match_score
 
 
 class HealthResponse(BaseModel):
@@ -74,10 +74,12 @@ class RecognitionService:
                 is_match=False,
             )
 
+        is_match = is_match_score(match.score)
+
         return VerificationResponse(
-            name=match.name if match.score >= MATCH_THRESHOLD else None,
+            name=match.name if is_match else None,
             score=match.score,
-            is_match=match.score >= MATCH_THRESHOLD,
+            is_match=is_match,
         )
 
 

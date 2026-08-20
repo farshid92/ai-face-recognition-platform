@@ -16,3 +16,9 @@ def test_known_match_uses_registered_name():
     match = FaceMatch(name="Farshid", score=0.92)
 
     assert get_face_label(match) == "Farshid"
+
+
+def test_threshold_boundary_is_treated_as_match():
+    match = FaceMatch(name="Farshid", score=0.50)
+
+    assert get_face_label(match) == "Farshid"

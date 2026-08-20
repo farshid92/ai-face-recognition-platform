@@ -100,6 +100,71 @@ button {
     padding: clamp(3.5rem, 8vw, 7rem) 0 clamp(2.5rem, 5vw, 4.5rem);
 }
 
+.step-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    max-width: 1160px;
+    margin: 0 auto 1.5rem;
+    background: rgba(232, 240, 235, .16);
+}
+
+.step-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    background: #101b1d;
+    opacity: .55;
+    transition: opacity .2s;
+}
+
+.step-card.active {
+    opacity: 1;
+    background: rgba(223, 128, 80, .06);
+}
+
+.step-card.done {
+    opacity: .4;
+}
+
+.step-index {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #4d6860;
+    color: #9baea4;
+    font: .75rem 'DM Mono', monospace;
+}
+
+.step-card.active .step-index {
+    border-color: #df8050;
+    color: #df8050;
+}
+
+.step-card p {
+    margin: 0 0 .25rem;
+    color: #e8f0eb;
+    font-size: .88rem;
+}
+
+.step-card span {
+    color: #71867c;
+    font-size: .72rem;
+    line-height: 1.4;
+}
+
+.text-input:disabled {
+    color: #536961;
+    border-color: #33443f;
+    cursor: not-allowed;
+}
+
+.button:disabled {
+    cursor: not-allowed;
+}
+
 .eyebrow,
 .panel-kicker,
 .result-kicker,
@@ -161,12 +226,39 @@ h1 em {
     background: rgba(16, 27, 29, .42);
 }
 
+.input-column {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(232, 240, 235, .16);
+}
+
+.mode-toggle {
+    display: flex;
+    gap: .5rem;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid rgba(232, 240, 235, .16);
+}
+
+.mode-toggle button {
+    padding: .4rem .8rem;
+    border: 1px solid #4d6860;
+    background: transparent;
+    color: #9baea4;
+    font: .68rem 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.mode-toggle button.active {
+    border-color: #df8050;
+    color: #e8f0eb;
+}
+
 .drop-zone {
     position: relative;
     display: grid;
     place-items: center;
-    min-height: 440px;
-    border-right: 1px solid rgba(232, 240, 235, .16);
+    min-height: 395px;
     background: repeating-linear-gradient(45deg, rgba(232, 240, 235, .018), rgba(232, 240, 235, .018) 1px, transparent 1px, transparent 10px);
 }
 
@@ -176,6 +268,29 @@ h1 em {
 
 .drop-zone input {
     display: none;
+}
+
+.camera-zone {
+    cursor: default;
+    background: #06100f;
+}
+
+.camera-feed {
+    width: 100%;
+    height: 395px;
+    object-fit: cover;
+}
+
+.capture-button {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: .7rem 1.4rem;
+    border: 0;
+    background: #df8050;
+    color: #101b1d;
+    font-size: .8rem;
 }
 
 .drop-content {
@@ -209,7 +324,7 @@ h1 em {
 
 .preview {
     width: 100%;
-    height: 440px;
+    height: 395px;
     object-fit: contain;
     padding: 1rem;
 }
@@ -423,6 +538,10 @@ footer {
         height: 68px;
     }
 
+    .step-guide {
+        grid-template-columns: 1fr;
+    }
+
     .brand {
         font-size: .76rem;
     }
@@ -445,10 +564,17 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .drop-zone {
-        min-height: 310px;
+    .input-column {
         border-right: 0;
         border-bottom: 1px solid rgba(232, 240, 235, .16);
+    }
+
+    .drop-zone {
+        min-height: 310px;
+    }
+
+    .camera-feed {
+        height: 310px;
     }
 
     .preview {
