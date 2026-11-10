@@ -6,11 +6,13 @@ from typing import Annotated
 import cv2
 import numpy as np
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from app.config import get_settings
 from app.database.qdrant import FaceDatabase
 from app.embedding.face_embedder import FaceEmbedder
-from app.recognition.demo import is_match_score
+from app.recognition.matching import is_match_score
 
 
 class HealthResponse(BaseModel):
@@ -88,6 +90,17 @@ app = FastAPI(
     version="0.1.0",
     description="Register and verify faces using SCRFD, ArcFace, and Qdrant.",
 )
+
+# Same-origin setups (Vite dev proxy, nginx in Docker) need no CORS at all,
+# so the middleware is only added when origins are configured explicitly.
+if get_settings().cors_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=list(get_settings().cors_origins),
+        allow_methods=["GET", "POST"],
+        allow_headers=["*"],
+    )
+
 _service: RecognitionService | None = None
 
 
