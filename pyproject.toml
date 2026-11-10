@@ -1,7 +1,7 @@
 [project]
 name = "ai-face-recognition-platform"
 version = "0.1.0"
-description = "Add your description here"
+description = "Face detection, embedding, and recognition with InsightFace and Qdrant, served through a desktop app, a FastAPI service, and a React frontend."
 readme = "README.md"
 authors = [
     { name = "farshid92", email = "farshidcheraghchian@gmail.com" }
@@ -22,9 +22,10 @@ dependencies = [
     "uvicorn>=0.52.1",
 ]
 
-[build-system]
-requires = ["uv_build>=0.12.2,<0.13.0"]
-build-backend = "uv_build"
+# The code runs from the `app` package on the project root and is not
+# published as a library, so uv only manages its dependencies.
+[tool.uv]
+package = false
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
