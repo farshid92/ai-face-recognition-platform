@@ -10,27 +10,36 @@ requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.141.1",
     "insightface>=1.0.1",
-    "matplotlib>=3.11.1",
     "numpy>=2.5.1",
     "onnxruntime>=1.28.0",
     "opencv-python>=5.0.0.93",
     "pydantic>=2.13.4",
-    "pyside6>=6.11.2",
     "python-multipart>=0.0.32",
     "qdrant-client>=1.19.0",
-    "scikit-learn>=1.9.0",
     "uvicorn>=0.52.1",
 ]
 
 # The code runs from the `app` package on the project root and is not
 # published as a library, so uv only manages its dependencies.
+#
+# `uv sync` installs every group below for local development. The API
+# Docker image installs only the core dependencies (--no-default-groups),
+# which keeps PySide6, scikit-learn and matplotlib out of the image.
 [tool.uv]
 package = false
+default-groups = ["dev", "desktop", "evaluation"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
 
 [dependency-groups]
+desktop = [
+    "pyside6>=6.11.2",
+]
+evaluation = [
+    "matplotlib>=3.11.1",
+    "scikit-learn>=1.9.0",
+]
 dev = [
     "mypy>=2.3.0",
     "pytest>=9.1.1",

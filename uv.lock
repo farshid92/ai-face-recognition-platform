@@ -14,46 +14,52 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "insightface" },
-    { name = "matplotlib" },
     { name = "numpy" },
     { name = "onnxruntime" },
     { name = "opencv-python" },
     { name = "pydantic" },
-    { name = "pyside6" },
     { name = "python-multipart" },
     { name = "qdrant-client" },
-    { name = "scikit-learn" },
     { name = "uvicorn" },
 ]
 
 [package.dev-dependencies]
+desktop = [
+    { name = "pyside6" },
+]
 dev = [
     { name = "mypy" },
     { name = "pytest" },
     { name = "ruff" },
+]
+evaluation = [
+    { name = "matplotlib" },
+    { name = "scikit-learn" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.141.1" },
     { name = "insightface", specifier = ">=1.0.1" },
-    { name = "matplotlib", specifier = ">=3.11.1" },
     { name = "numpy", specifier = ">=2.5.1" },
     { name = "onnxruntime", specifier = ">=1.28.0" },
     { name = "opencv-python", specifier = ">=5.0.0.93" },
     { name = "pydantic", specifier = ">=2.13.4" },
-    { name = "pyside6", specifier = ">=6.11.2" },
     { name = "python-multipart", specifier = ">=0.0.32" },
     { name = "qdrant-client", specifier = ">=1.19.0" },
-    { name = "scikit-learn", specifier = ">=1.9.0" },
     { name = "uvicorn", specifier = ">=0.52.1" },
 ]
 
 [package.metadata.requires-dev]
+desktop = [{ name = "pyside6", specifier = ">=6.11.2" }]
 dev = [
     { name = "mypy", specifier = ">=2.3.0" },
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "ruff", specifier = ">=0.16.1" },
+]
+evaluation = [
+    { name = "matplotlib", specifier = ">=3.11.1" },
+    { name = "scikit-learn", specifier = ">=1.9.0" },
 ]
 
 [[package]]
