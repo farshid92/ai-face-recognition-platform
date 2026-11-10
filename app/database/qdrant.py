@@ -1,8 +1,11 @@
 import logging
-from uuid import uuid4
 from dataclasses import dataclass
+from uuid import uuid4
+
 import numpy as np
 from qdrant_client import QdrantClient, models
+
+from app.config import get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -20,9 +23,9 @@ class FaceDatabase:
 
     def __init__(
         self,
-        url: str = "http://localhost:6333",
+        url: str | None = None,
     ) -> None:
-        self.client = QdrantClient(url=url)
+        self.client = QdrantClient(url=url or get_settings().qdrant_url)
 
         self._ensure_collection()
 

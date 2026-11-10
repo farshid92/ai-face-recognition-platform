@@ -16,11 +16,11 @@ thread and corrupt the reference. QMutex makes that access sequential.
 from PySide6.QtCore import QMutex, QMutexLocker, QThread, Signal
 
 from app.camera.camera import Camera
-from app.config import CameraConfig
+from app.config import CameraConfig, get_settings
 from app.database.qdrant import FaceDatabase, FaceMatch
 from app.desktop.rendering import DetectedFace
 from app.embedding.face_embedder import FaceEmbedder
-from app.recognition.demo import get_face_label, is_match_score
+from app.recognition.matching import get_face_label, is_match
 
 
 class RecognitionThread(QThread):
@@ -32,7 +32,7 @@ class RecognitionThread(QThread):
 
     def __init__(self, camera_config: CameraConfig | None = None) -> None:
         super().__init__()
-        self._camera_config = camera_config or CameraConfig()
+        self._camera_config = camera_config or get_settings().camera
         self._running = False
         self._mutex = QMutex()
         self._pending_name: str | None = None
@@ -82,14 +82,13 @@ class RecognitionThread(QThread):
 
                     match: FaceMatch | None = database.find_match(embedding)
                     label = get_face_label(match)
-                    is_match = match is not None and is_match_score(match.score)
 
                     x1, y1, x2, y2 = face.bbox.astype(int)
                     detected.append(
                         DetectedFace(
                             bbox=(x1, y1, x2, y2),
                             label=label,
-                            is_match=is_match,
+                            is_match=is_match(match),
                             embedding=embedding,
                         )
                     )

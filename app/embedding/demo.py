@@ -1,12 +1,13 @@
 import cv2
 import numpy as np
 
+from app.config import get_settings
 from app.embedding.face_embedder import FaceEmbedder
 
 
 def main() -> None:
     embedder = FaceEmbedder()
-    camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(get_settings().camera.index)
 
     if not camera.isOpened():
         raise RuntimeError("Could not open webcam.")

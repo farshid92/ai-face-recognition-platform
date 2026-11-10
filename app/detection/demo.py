@@ -1,12 +1,12 @@
 import cv2
 
 from app.camera.camera import Camera
-from app.config import CameraConfig
+from app.config import get_settings
 from app.detection.face_detector import FaceDetector
 
 
 def main() -> None:
-    camera = Camera(CameraConfig())
+    camera = Camera(get_settings().camera)
     detector = FaceDetector()
 
     try:

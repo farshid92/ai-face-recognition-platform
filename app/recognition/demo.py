@@ -1,26 +1,16 @@
 import cv2
 
-from app.database.qdrant import FaceDatabase, FaceMatch
+from app.config import get_settings
+from app.database.qdrant import FaceDatabase
 from app.embedding.face_embedder import FaceEmbedder
-
-MATCH_THRESHOLD = 0.50
-
-
-def is_match_score(score: float | None) -> bool:
-    return score is not None and score >= MATCH_THRESHOLD
-
-
-def get_face_label(match: FaceMatch | None) -> str:
-    if match is None or not is_match_score(match.score):
-        return "Unknown"
-    return match.name
+from app.recognition.matching import get_face_label, is_match
 
 
 def main() -> None:
     embedder = FaceEmbedder()
     database = FaceDatabase()
 
-    camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(get_settings().camera.index)
 
     if not camera.isOpened():
         raise RuntimeError("Could not open webcam.")
@@ -45,7 +35,7 @@ def main() -> None:
 
                 x1, y1, x2, y2 = face.bbox.astype(int)
 
-                if match is not None and match.score >= MATCH_THRESHOLD:
+                if is_match(match):
                     cv2.rectangle(
                         frame,
                         (x1, y1),
