@@ -3,6 +3,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from app.config import get_settings
 from app.embedding.face_embedder import FaceEmbedder
 from app.evaluation.metrics import (
     pairwise_similarities,
@@ -13,7 +14,7 @@ from app.evaluation.metrics import (
 def main() -> None:
     embedder = FaceEmbedder()
 
-    camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(get_settings().camera.index)
 
     if not camera.isOpened():
         raise RuntimeError("Could not open webcam.")

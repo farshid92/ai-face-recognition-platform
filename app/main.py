@@ -3,7 +3,7 @@ import logging
 import cv2
 
 from app.camera.camera import Camera
-from app.config import CameraConfig
+from app.config import get_settings
 from app.utils.fps import FPSCounter
 
 logging.basicConfig(
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 def main() -> None:
-    config = CameraConfig()
+    config = get_settings().camera
 
     logger.info(
         "Starting camera %s",
