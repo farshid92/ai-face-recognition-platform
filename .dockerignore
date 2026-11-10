@@ -1,0 +1,27 @@
+# Keep the API build context small: only pyproject.toml, uv.lock,
+# .python-version and app/ are needed.
+.git/
+.venv/
+.vscode/
+.idea/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.env
+.env.*
+!.env.example
+
+qdrant_storage/
+data/
+models/
+.insightface/
+
+frontend/
+app/tests/
+
+Dockerfile
+docker-compose.yaml
+README.md
